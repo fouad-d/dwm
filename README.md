@@ -43,5 +43,7 @@ Type=XSession
 Installing dwm
 
 `git clone https://gitlab.com/fouad-dev/dwm.git`
+
 `cd dwm`
+
 `sudo make clean install`
