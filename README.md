@@ -24,9 +24,6 @@ dmenu
 Also, you will need to add the following from the AUR:
 https://aur.archlinux.org/packages/libxft-bgra-git/ (needed for colored fonts and emojis)
 
-Installing dwm
-cd dwm
-sudo make clean install
 
 Running dwm
 
@@ -43,3 +40,8 @@ Icon=dwm
 Type=XSession
 
 
+Installing dwm
+
+`git clone https://gitlab.com/fouad-dev/dwm.git`
+`cd dwm`
+`sudo make clean install`
