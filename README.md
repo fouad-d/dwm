@@ -42,7 +42,7 @@ Type=XSession
 
 Installing dwm
 
-`git clone https://gitlab.com/fouad-dev/dwm.git`
+`git clone https://gitlab.com/fouadkhelifi/dwm.git`
 
 `cd dwm`
 
