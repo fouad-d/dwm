@@ -1,7 +1,7 @@
 
 /* Constants */
 #define TERMINAL "st"
-#define TERMCLASS "St"
+#define TERMCLASS "ST"
 
 /* appearance */
 static unsigned int borderpx  		= 3;        /* border pixel of windows */
@@ -147,7 +147,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_g,		shifttag,		{ .i = -1 } },
 	{ MODKEY,			    XK_b,		togglebar,		{0} },
 	{ MODKEY,			    XK_q,		killclient,		{0} },
-	{ MODKEY|ShiftMask,		XK_q,		spawn,			SHCMD("sysact") },
+	//{ MODKEY|ShiftMask,		XK_q,		spawn,			SHCMD("sysact") },
 	
 	    /* Switching between tags */
 	TAGKEYS(                        XK_KP_End,                      0)
@@ -159,79 +159,103 @@ static Key keys[] = {
 	TAGKEYS(                        XK_KP_Home,                     6)
 	TAGKEYS(                        XK_KP_Up,                       7)
 	TAGKEYS(                        XK_KP_Prior,                    8)
+
+/*=========================*/
 	{ MODKEY,			            XK_KP_Insert,		view,			{.ui = ~0 } },
 	{ MODKEY|ShiftMask,		        XK_KP_Insert,		tag,			{.ui = ~0 } },
 	{ MODKEY,			            XK_Tab,				view,			{0} },
+
 	{ MODKEY,			            XK_semicolon,		shiftview,		{ .i = 1 } },
-	{ MODKEY|ShiftMask,		        XK_semicolon,		shifttag,		{ .i = 1 } },
+	{ MODKEY|ShiftMask,			    XK_semicolon,		shifttag,		{ .i = 1 } },
 	{ MODKEY,			            XK_g,				shiftview,		{ .i = -1 } },
-	{ MODKEY|ShiftMask,		        XK_g,		    	shifttag,		{ .i = -1 } },
+	{ MODKEY|ShiftMask,		    	XK_g,		    	shifttag,		{ .i = -1 } },
+
+	{ MODKEY,			   			XK_Left,			focusmon,		{.i = -1 } },
+	{ MODKEY,			    		XK_Right,			focusmon,		{.i = +1 } },
+	{ MODKEY|ShiftMask,				XK_Left,			tagmon,			{.i = -1 } },
+	{ MODKEY|ShiftMask,				XK_Right,			tagmon,			{.i = +1 } },
+
+	{ MODKEY|Mod1Mask,    XK_s,		togglesticky,		{0} },
+
+
+
+	/*{ MODKEY,			    XK_Page_Up,			shiftview,		{ .i = -1 } },
+	{ MODKEY|ShiftMask,		XK_Page_Up,			shifttag,		{ .i = -1 } },
+	{ MODKEY,			    XK_Page_Down,		shiftview,		{ .i = +1 } },
+	{ MODKEY|ShiftMask,		XK_Page_Down,		shifttag,		{ .i = +1 } },*/
 
 	    /* Switch to specific layouts */
-	{ MODKEY,			    XK_t,		setlayout,		{.v = &layouts[0]} }, 	/* tile */
-	{ MODKEY|ShiftMask,		XK_t,		setlayout,		{.v = &layouts[1]} }, 	/* bstack */
-	{ MODKEY,			    XK_y,		setlayout,		{.v = &layouts[2]} }, 	/* spiral */
-	{ MODKEY|ShiftMask,		XK_y,		setlayout,		{.v = &layouts[3]} }, 	/* dwindle */
-	{ MODKEY,			    XK_u,		setlayout,		{.v = &layouts[4]} },	/* deck */
-	{ MODKEY|ShiftMask,		XK_u,		setlayout,		{.v = &layouts[5]} }, 	/* monocle */
-	{ MODKEY,			    XK_i,		setlayout,		{.v = &layouts[6]} }, 	/* centeredmaster */
-	{ MODKEY|ShiftMask,		XK_i,		setlayout,		{.v = &layouts[7]} }, 	/* centeredfloatingmaster */
-	{ MODKEY,		        XK_c,		setlayout,		{.v = &layouts[10]} },	/* Grid layout */
-	{ MODKEY,		    	XK_o,		incnmaster,     {.i = +1 } },
+	{ MODKEY|Mod1Mask,		XK_t,		setlayout,		{.v = &layouts[0]} }, 	/* tile */
+	{ MODKEY|Mod1Mask,		XK_b,		setlayout,		{.v = &layouts[1]} }, 	/* bstack */
+	{ MODKEY|Mod1Mask,		XK_p,		setlayout,		{.v = &layouts[2]} }, 	/* spiral */
+	{ MODKEY|Mod1Mask,		XK_d,		setlayout,		{.v = &layouts[3]} }, 	/* dwindle */
+	{ MODKEY|Mod1Mask,	    XK_u,		setlayout,		{.v = &layouts[4]} },	/* deck */
+	{ MODKEY|Mod1Mask,		XK_m,		setlayout,		{.v = &layouts[5]} }, 	/* monocle */
+	{ MODKEY|Mod1Mask,	    XK_c,		setlayout,		{.v = &layouts[6]} }, 	/* centeredmaster */
+	{ MODKEY|Mod1Mask,		XK_f,		setlayout,		{.v = &layouts[7]} }, 	/* centeredfloatingmaster */
+	{ MODKEY|Mod1Mask,		XK_r,		setlayout,		{.v = &layouts[10]} },	/* Grid layout */
+
+	/*=========================*/
+	{ MODKEY,				XK_o,		incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_o,		incnmaster,     {.i = -1 } },
-	{ MODKEY,			    XK_f,		togglefullscr,	{0} },
+	{ MODKEY,				XK_f,		togglefullscr,	{0} },
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,		{.v = &layouts[8]} },
-	{ MODKEY,			    XK_space,	zoom,			{0} },
+	{ MODKEY,				XK_space,	zoom,			{0} },
 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
 
-	    /* Dmenu scripts launched with ALT + CTRL + KEY */   
-	{ MODKEY,			    XK_comma,	spawn,		SHCMD("dmenuunicode") },
-	{ MODKEY,			    XK_F9,		spawn,		SHCMD("dmenumount") },
-	{ MODKEY,		    	XK_F10,		spawn,		SHCMD("dmenuumount") },
-	{ MODKEY,			    XK_Print,	spawn,		SHCMD("dmenurecord") },
-	{ MODKEY|ShiftMask,		XK_Print,	spawn,		SHCMD("dmenurecord kill") },
-	{ MODKEY,			    XK_Delete,	spawn,		SHCMD("dmenurecord kill") },
-	
-	    /* Apps Launched */
+	    /* Dmenu scripts  */   
+	{ MODKEY,			   			 XK_F1,		spawn,		SHCMD("dmenuunicode") },
+	{ MODKEY,			   			 XK_F9,		spawn,		SHCMD("dmenumount") },
+	{ MODKEY,		    			 XK_F10,	spawn,		SHCMD("dmenuumount") },
+	{ MODKEY,			    		 XK_Print,	spawn,		SHCMD("dmenurecord") },
+	{ MODKEY|ShiftMask,		 		 XK_Print,	spawn,		SHCMD("dmenurecord kill") },
+	{ MODKEY,			   			 XK_Delete,	spawn,		SHCMD("dmenurecord kill") },
+	{ MODKEY,			    		 XK_s,		spawn,		SHCMD("dmenuwebsearch") },
+	{ MODKEY,			 			 XK_F2,		spawn,		SHCMD("dmconf") },
+	{ 0,				    		 XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
+	{ ShiftMask,					 XK_Print,	spawn,		SHCMD("maimpick") },
+
+	   
+  		/* Apps Launched */
 	{ MODKEY,			    XK_d,		spawn,      SHCMD("dmenu_run") },
 	{ MODKEY,			    XK_w,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY,			    XK_r,		spawn,		SHCMD("pcmanfm") },
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD(TERMINAL " -e lf") },
-	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("keepassxc") },
-	{ MODKEY,			    XK_e,		spawn,		SHCMD("thunderbird ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") },
+	{ MODKEY,	   			XK_r,		spawn,		SHCMD("thunar") },
+	{ MODKEY|ShiftMask,   	XK_r,		spawn,		SHCMD(TERMINAL " -e ranger") },
+	{ MODKEY,				XK_x,		spawn,		SHCMD("keepassxc") },
+	{ MODKEY|ShiftMask,	    XK_e,		spawn,		SHCMD("thunderbird") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD(TERMINAL " -e sudo nmtui") },
 	{ MODKEY|ShiftMask,		XK_h,		spawn,		SHCMD(TERMINAL " -e htop") },
-	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
-	{ MODKEY,		        XK_Menu,	spawn,		SHCMD("./xmenu/xmenu.sh") },
 	{ MODKEY,			    XK_n,		spawn,		SHCMD(TERMINAL " -e nvim -c VimwikiIndex") },
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD(TERMINAL " -e newsboat; pkill -RTMIN+6 dwmblocks") },
 	{ MODKEY,			    XK_m,		spawn,		SHCMD(TERMINAL " -e ncmpcpp") },
-	{ 0,				    XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
-	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	{ MODKEY,			    XK_F11,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
-	{ MODKEY|Mod1Mask,		XK_Return,	spawn,		SHCMD("alacritty") },
+	{ MODKEY,	    		XK_e,		spawn,		SHCMD("geany") },
+	{ MODKEY,	    		XK_c,		spawn,		SHCMD("code") },
+	{ MODKEY,	    		XK_v,		spawn,		SHCMD("virtualbox") },
+	{ MODKEY,				XK_t,		spawn,		SHCMD("alacritty") },
+	{ MODKEY|ShiftMask,		XK_t,		spawn,		SHCMD("terminator") },
 
+	{ MODKEY,		        XK_Menu,	spawn,		SHCMD("/home/fouad/xmenu/xmenu.sh") },
+	
+	/*{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },*/
 
                    /*  Switch  gaps  */
-	{ MODKEY,			    XK_a,		togglegaps,			{0} },
-	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,		{0} },
-	{ MODKEY,			    XK_s,		togglesticky,		{0} },
-	{ MODKEY,			    XK_x,		incrgaps,			{.i = -3 } },
-	{ MODKEY,			    XK_z,		incrgaps,			{.i = +3 } },
+	{ MODKEY,			  XK_a,		togglegaps,			{0} },
+	{ MODKEY|ShiftMask,	  XK_a,		defaultgaps,		{0} },
+	{ MODKEY|ShiftMask,	  XK_z,		incrgaps,			{.i = +3 } },
+	{ MODKEY,			  XK_z,		incrgaps,			{.i = -3 } },
 
            /*  sound keys  */
 	{ MODKEY,			    XK_F4,				spawn,		SHCMD(TERMINAL " -e pulsemixer; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,			    XK_Down,		spawn,		SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		XK_Down,	   	spawn,		SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,			    XK_Up,			spawn,		SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,		XK_Up,			spawn,		SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			    XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,		spawn,		SHCMD("sysact") },
 	{ MODKEY|ShiftMask,		XK_m,				spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY,			    XK_comma,			spawn,		SHCMD("mpc prev") },
 	{ MODKEY|ShiftMask,		XK_comma,			spawn,		SHCMD("mpc seek 0%") },
-	{ MODKEY,			    XK_period,			spawn,		SHCMD("mpc next") },
-	{ MODKEY|ShiftMask,		XK_period,			spawn,		SHCMD("mpc repeat") },
+	/*{ MODKEY,			    XK_period,			spawn,		SHCMD("mpc next") },
+	{ MODKEY|ShiftMask,		XK_period,			spawn,		SHCMD("mpc repeat") },*/
+	{ MODKEY,			    XK_exclam,			spawn,		SHCMD("mpc next") },
+	{ MODKEY|ShiftMask,		XK_exclam,			spawn,		SHCMD("mpc repeat") },	
 	{ MODKEY,			    XK_p,				spawn,		SHCMD("mpc toggle") },
 	{ MODKEY|ShiftMask,		XK_p,				spawn,		SHCMD("mpc pause ; pauseallmpv") },
 	{ MODKEY,			    XK_bracketleft,		spawn,		SHCMD("mpc seek -10") },
@@ -239,21 +263,19 @@ static Key keys[] = {
 	{ MODKEY,			    XK_bracketright,	spawn,		SHCMD("mpc seek +10") },
 	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +60") },
 
+/*=============================*/
+	{ MODKEY,			    XK_Down,			spawn,		SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,		XK_Down,	   		spawn,		SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,			    XK_Up,				spawn,		SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,		XK_Up,				spawn,		SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,			    XK_Prior,			spawn,		SHCMD("xbacklight -inc 15") },
+	{ MODKEY,			    XK_Next,			spawn,		SHCMD("xbacklight -dec 15") },
 
-
+/* ===================================*/
 	{ MODKEY,			    XK_apostrophe,		togglescratch,	{.ui = 1} },
+	{ MODKEY|ShiftMask,		XK_Return,			togglescratch,	{.ui = 0} },
 	{ MODKEY,			    XK_backslash,		view,			{0} },
 	{ MODKEY,			    XK_Return,			spawn,			{.v = termcmd } },
-	{ MODKEY|ShiftMask,		XK_Return,			togglescratch,	{.ui = 0} },
-	{ MODKEY,			    XK_Left,			focusmon,		{.i = -1 } },
-	{ MODKEY|ShiftMask,		XK_Left,			tagmon,			{.i = -1 } },
-	{ MODKEY,			    XK_Right,			focusmon,		{.i = +1 } },
-	{ MODKEY|ShiftMask,		XK_Right,			tagmon,			{.i = +1 } },
-	
-	{ MODKEY,			    XK_Page_Up,			shiftview,		{ .i = -1 } },
-	{ MODKEY|ShiftMask,		XK_Page_Up,			shifttag,		{ .i = -1 } },
-	{ MODKEY,			    XK_Page_Down,		shiftview,		{ .i = +1 } },
-	{ MODKEY|ShiftMask,		XK_Page_Down,		shifttag,		{ .i = +1 } },
 	{ MODKEY,			    XK_Insert,			spawn,			SHCMD("xdotool type $(cat ~/.local/share/larbs/snippets | dmenu -i -l 50 | cut -d' ' -f1)") },
 	{ MODKEY,			    XK_F3,				spawn,			SHCMD("displayselect") },
 	{ MODKEY,			    XK_F6,				spawn,			SHCMD("torwrap") },
@@ -263,7 +285,6 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_Tab,				spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_s,				spawn,		SHCMD("") }, */
-	/* { MODKEY,				XK_d,				spawn,		SHCMD("") } }, */
 	/* { MODKEY|ShiftMask,		XK_apostrophe,		spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_z,				spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_x,				spawn,		SHCMD("") }, */
@@ -275,7 +296,7 @@ static Key keys[] = {
 	/* { MODKEY,				XK_F5,				xrdb,		{.v = NULL } }, */
 	/* { MODKEY,				XK_F12,				xrdb,		{.v = NULL } }, */
 
-
+/* XF86XK Keys */
 	{ MODKEY,			    XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") },
 
 	{ 0, XF86XK_AudioMute,				spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
@@ -306,6 +327,7 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessUp,		spawn,		SHCMD("xbacklight -inc 15") },
 	{ 0, XF86XK_MonBrightnessDown,		spawn,		SHCMD("xbacklight -dec 15") },
 	/* { 0, XF86XK_Battery,				spawn,		SHCMD("") }, */
+
 
 	/* { MODKEY|Mod4Mask,               XK_h,       incrgaps,       {.i = +1 } }, */
 	/* { MODKEY|Mod4Mask,               XK_l,       incrgaps,       {.i = -1 } }, */
