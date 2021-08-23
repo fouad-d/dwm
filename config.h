@@ -14,7 +14,7 @@ static int swallowfloating    		= 0;        /* 1 means swallow floating windows 
 static int smartgaps         	 	= 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            		= 1;        /* 0 means no bar */
 static int topbar             		= 1;        /* 0 means bottom bar */
-static char *fonts[]         	 	= { "Source Code Pro:size=10", "JoyPixels:pixelsize=11:antialias=true:autohint=true"  };
+static char *fonts[]         	 	= { "monospace:size=10", "JoyPixels:pixelsize=11:antialias=true:autohint=true"  };
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -150,6 +150,8 @@ static Key keys[] = {
 	//{ MODKEY|ShiftMask,		XK_q,		spawn,			SHCMD("sysact") },
 	
 	    /* Switching between tags */
+	    /* numpad numbers*/
+	/*
 	TAGKEYS(                        XK_KP_End,                      0)
 	TAGKEYS(                        XK_KP_Down,                     1)
 	TAGKEYS(                        XK_KP_Next,                     2)
@@ -159,6 +161,22 @@ static Key keys[] = {
 	TAGKEYS(                        XK_KP_Home,                     6)
 	TAGKEYS(                        XK_KP_Up,                       7)
 	TAGKEYS(                        XK_KP_Prior,                    8)
+	*/
+	
+	/* AZERTY keyboard numbers */
+	 
+	TAGKEYS(                   		XK_ampersand,                      0)
+	TAGKEYS(                        XK_eacute,                   	  1)
+	TAGKEYS(                        XK_quotedbl,                   	  2)
+	TAGKEYS(                        XK_apostrophe,                     3)
+	TAGKEYS(                        XK_parenleft,               	      4)
+	TAGKEYS(                        XK_minus,                   		  5)
+	TAGKEYS(                        XK_egrave,                	      6)
+	TAGKEYS(                        XK_underscore,                     7)
+	TAGKEYS(                        XK_ccedilla,                 	  8)
+	 
+	 
+	
 
 /*=========================*/
 	{ MODKEY,			            XK_KP_Insert,		view,			{.ui = ~0 } },
@@ -220,7 +238,8 @@ static Key keys[] = {
 	{ MODKEY,			    XK_d,		spawn,      SHCMD("dmenu_run") },
 	{ MODKEY,			    XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY,	   			XK_r,		spawn,		SHCMD("thunar") },
-	{ MODKEY|ShiftMask,   	XK_r,		spawn,		SHCMD(TERMINAL " -e ranger") },
+	/*{ MODKEY|ShiftMask,   	XK_r,		spawn,		SHCMD(TERMINAL " -e ranger") },*/
+	{ MODKEY|ShiftMask,   	XK_r,		spawn,		SHCMD("alacritty  -e ranger") },	
 	{ MODKEY,				XK_x,		spawn,		SHCMD("keepassxc") },
 	{ MODKEY|ShiftMask,	    XK_e,		spawn,		SHCMD("thunderbird") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD(TERMINAL " -e sudo nmtui") },
@@ -231,9 +250,11 @@ static Key keys[] = {
 	{ MODKEY,			    XK_F11,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
 	{ MODKEY,	    		XK_e,		spawn,		SHCMD("geany") },
 	{ MODKEY,	    		XK_c,		spawn,		SHCMD("code") },
-	{ MODKEY,	    		XK_v,		spawn,		SHCMD("virtualbox") },
+	{ MODKEY,	    		XK_v,		spawn,		SHCMD("virt-manager") },
 	{ MODKEY,				XK_t,		spawn,		SHCMD("alacritty") },
 	{ MODKEY|ShiftMask,		XK_t,		spawn,		SHCMD("terminator") },
+
+	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD(TERMINAL " -e bc -l") },
 
 	{ MODKEY,		        XK_Menu,	spawn,		SHCMD("/home/fouad/xmenu/xmenu.sh") },
 	
@@ -272,7 +293,7 @@ static Key keys[] = {
 	{ MODKEY,			    XK_Next,			spawn,		SHCMD("xbacklight -dec 15") },
 
 /* ===================================*/
-	{ MODKEY,			    XK_apostrophe,		togglescratch,	{.ui = 1} },
+	{ MODKEY,			    XK_F5,				togglescratch,	{.ui = 1} },
 	{ MODKEY|ShiftMask,		XK_Return,			togglescratch,	{.ui = 0} },
 	{ MODKEY,			    XK_backslash,		view,			{0} },
 	{ MODKEY,			    XK_Return,			spawn,			{.v = termcmd } },
